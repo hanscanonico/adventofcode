@@ -17,4 +17,17 @@ file_data.each do |line|
     total_score += score
 end
 
-puts total_score
+index = 3
+total_score = 0
+while index <= file_data.size do
+    score = 0
+    lines = file_data[index-3..index-1]
+    line1 = lines[0].gsub(/[^0-9a-z ]/i, '').chars
+    line2 = lines[1].gsub(/[^0-9a-z ]/i, '').chars
+    line3 = lines[2].gsub(/[^0-9a-z ]/i, '').chars
+    char = (line1 & line2 & line3).first
+    score += char.gsub(/[A-Z]/) {|m| m.ord - 38}.gsub(/[a-z]/) {|m| m.ord - 96}.to_i
+    index += 3
+    total_score += score
+end
+puts "score total #{total_score}"
